@@ -30,8 +30,8 @@ public:
             else if ((i == 0 || i == n - 1) && (s[i] == 'e' || s[i] == 'E')) 
                 return false;
             // single '.' cannot be both start and end
-            // else if (i == 0 && i == n - 1 && s[i] == '.') 
-            //     return false;
+            else if (i == 0 && i == n - 1 && s[i] == '.') 
+                return false;
             // 'e/E' must follow at least one digit
             else if ((s[i] == 'e' || s[i] == 'E') && !countN) 
                 return false;
