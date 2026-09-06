@@ -1,24 +1,19 @@
 class Solution {
 public:
     int countGroups(vector<int>& position, vector<int>& speed, int distance) {
-        int n = position.size();
-        if(n <= 1) return n;
-        vector<int>leaders;
-        for(int i=0; i<n; i++){
-            if(i+1<n && position[i+1]-position[i] <= distance){
-                continue;
-            }
-            leaders.push_back(i);
-        }
+        int n = speed.size();
+        int l = n-1;
+        int r = n-1;
         int groups = 1;
-        int current_leader = leaders.back();
-        for(int i=leaders.size()-2; i>=0; i--){
-            int u = leaders[i];
-            if(speed[u] > speed[current_leader]){
-                continue;
+        for(int i=n-2; i>=0; i--){
+            if(position[l]-position[i] <= distance || speed[i] > speed[r]){
+                l=i;
             }
-            groups++;
-            current_leader = u;
+            else{
+                groups++;
+                l=i;
+                r=i;
+            }
         }
         return groups;
     }
