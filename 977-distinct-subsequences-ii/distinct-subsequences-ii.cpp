@@ -1,23 +1,35 @@
 class Solution {
+private:
+    const int mod = 1e9+7;
+    int dp[2001];
+    vector<int>prev;
+    int rec(int n){
+        if(n == 0){
+            return 1;
+        }
+
+        if(dp[n] != -1) return dp[n];
+
+        int total = (2*rec(n-1))%mod;
+
+        if(prev[n] != 0){
+            int duplicates = rec(prev[n]-1);
+            total = (total-duplicates+mod)%mod;
+        }
+
+        return dp[n] = total;
+    }
 public:
     int distinctSubseqII(string s) {
-        const int N = s.length();
-        const int MOD = 1e9 + 7;
-        
-        vector<int> dp(N+1);
-        dp[0] = 1;
-        vector<int> last(26, -1);
-        
-        for(int i = 0; i < N; i++){
-            int x = s[i] - 'a';
-            dp[i+1] = dp[i] * 2 % MOD;
-            if(last[x] >= 0) // if this is the first occurence of ch
-                dp[i+1] -= dp[last[x]];
-            dp[i+1] %= MOD;
-            last[x] = i;
+        int n = s.size();
+        memset(dp,-1,sizeof(dp));
+        prev.assign(n+1,0);
+        vector<int>lastSeen(26,0);
+        for(int i=1; i<=n; i++){
+            int idx = s[i-1]-'a';
+            prev[i] = lastSeen[idx];
+            lastSeen[idx] = i;
         }
-        dp[N]--;
-        if(dp[N] < 0) dp[N] += MOD;
-        return dp[N];
+        return (rec(n)-1+mod)%mod;
     }
 };
