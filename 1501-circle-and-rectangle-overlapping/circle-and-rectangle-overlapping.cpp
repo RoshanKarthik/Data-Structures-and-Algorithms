@@ -1,32 +1,10 @@
 class Solution {
 public:
     bool checkOverlap(int radius, int xCenter, int yCenter, int x1, int y1, int x2, int y2) {
-        int xi;
-        int yi;
-
-        if(x1 > xCenter){
-            xi = x1;
-        }
-        else if(x2 < xCenter){
-            xi = x2;
-        }
-        else{
-            xi = xCenter;
-        }
-
-
-        if(y1 > yCenter){
-            yi = y1;
-        }
-        else if(yCenter > y2){
-            yi = y2;
-        }
-        else{
-            yi = yCenter;
-        }
+        int xi = clamp(xCenter, x1, x2);
+        int yi = clamp(yCenter, y1, y2);
         int dx = xi - xCenter;
         int dy = yi - yCenter;
-
         return dx * dx + dy * dy <= radius * radius;
     }
 };
