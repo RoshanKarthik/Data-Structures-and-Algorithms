@@ -6,9 +6,15 @@ public:
         int maxi = INT_MIN;
         for(int i=0; i<n; i++){
             int x = nums[i];
-            string temp = to_string(x);
-            sort(temp.begin(),temp.end());
-            ans[i] = (temp[temp.size()-1]-'0') - (temp[0]-'0');
+            int mx = INT_MIN;
+            int mn = INT_MAX;
+            while(x > 0){
+                int digit = x%10;
+                mx = max(mx,digit);
+                mn = min(mn,digit);
+                x/=10;
+            }
+            ans[i] = mx-mn;
             maxi = max(ans[i],maxi);
         }
         int sum = 0;
