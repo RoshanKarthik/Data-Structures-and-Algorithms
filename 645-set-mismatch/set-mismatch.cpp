@@ -6,17 +6,16 @@ public:
         for(int x : nums){
             mpp[x]++;
         }
-        vector<int>ans;
+        int dup = 0;
+        int mis = 0;
         for(int i=1; i<=n; i++){
-            if(mpp[i] == 2){
-                ans.push_back(i);
-            }
+           if(mpp[i] == 2){
+            dup = i;
+           }
+           if(mpp[i] == 0){
+            mis = i;
+           }
         }
-        for(int i=1; i<=n; i++){
-            if(mpp[i] == 0){
-                ans.push_back(i);
-            }
-        }
-        return ans;
+        return {dup,mis};
     }
 };
