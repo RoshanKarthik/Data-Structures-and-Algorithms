@@ -1,36 +1,40 @@
-#define pb push_back
 class Solution {
 public:
     vector<int> majorityElement(vector<int>& nums) {
         int n = nums.size();
-        vector<int>ans;
-        int cnt1=0,cnt2=0;
-        int el1=INT_MIN,el2=INT_MIN;
+        int cnt1 = 0;
+        int cnt2 = 0;
+        int ele1 = INT_MIN;
+        int ele2 = INT_MIN;
         for(int i=0; i<n; i++){
-            if(cnt1 == 0 && nums[i]!=el2){
+            if(cnt1 == 0 && nums[i] != ele2){
                 cnt1 = 1;
-                el1 = nums[i];
+                ele1 = nums[i];
             }
-            else if(cnt2 == 0 && nums[i] != el1){
+            else if(cnt2 == 0 && nums[i] != ele1){
                 cnt2 = 1;
-                el2 = nums[i];
+                ele2 = nums[i];
             }
-            else if(nums[i] == el1) cnt1++;
-            else if(nums[i] == el2) cnt2++;
+            else if(nums[i] == ele1){
+                cnt1++;
+            }
+            else if(nums[i] == ele2){
+                cnt2++;
+            }
             else{
-                cnt1--;
-                cnt2--;
+                cnt1--; cnt2--;
             }
         }
-
-        cnt1=0,cnt2=0;
+        
+        vector<int>ans;
+        int x = n/3;
+        int c1=0,c2=0;
         for(int i=0; i<n; i++){
-            if(nums[i] == el1) cnt1++;
-            if(nums[i] == el2) cnt2++;
+            if(nums[i] == ele1) c1++;
+            if(nums[i] == ele2) c2++;
         }
-        int mini = n/3;
-        if(cnt1 > mini) ans.pb(el1);
-        if(cnt2 > mini) ans.pb(el2);
+        if(c1 > x) ans.push_back(ele1);
+        if(c2 > x) ans.push_back(ele2);
         sort(ans.begin(),ans.end());
         return ans;
     }
