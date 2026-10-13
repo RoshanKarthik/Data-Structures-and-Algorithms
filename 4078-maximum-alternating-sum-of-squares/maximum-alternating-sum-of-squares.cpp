@@ -2,25 +2,10 @@ class Solution {
 public:
     long long maxAlternatingSum(vector<int>& nums) {
         int n = nums.size();
-        long long sum = 0;
-        sort(nums.begin(),nums.end(),[&](int a, int b){
-            return abs(a) > abs(b);
-        });
-        for(int x : nums){
-            cout << x << " ";
+        for(int &x : nums){
+            x *= x;
         }
-        if(n%2==0){
-            for(int i=0; i<n; i++){
-                if(i<n/2) sum += (1LL*nums[i]*nums[i]);
-                else sum -= (1LL*nums[i]*nums[i]);
-            }
-        }
-        else{
-            for(int i=0; i<n; i++){
-                if(i<=n/2) sum += (1LL*nums[i]*nums[i]);
-                else sum -= (1LL*nums[i]*nums[i]);
-            }
-        }
-        return sum;
+        sort(nums.begin(),nums.end());
+        return -accumulate(nums.begin(),nums.begin()+n/2,0LL) + accumulate(nums.begin()+n/2,nums.end(),0LL);
     }
 };
